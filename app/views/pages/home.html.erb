@@ -1,0 +1,47 @@
+<div id="map" data-places="<%= @places.to_json %>"></div>
+
+<script>
+  const mapEl = document.getElementById("map");
+  const places = JSON.parse(mapEl.dataset.places);
+
+  const map = L.map("map").setView([45.748, 4.847], 13);
+
+  L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+    attribution: "&copy; OpenStreetMap contributors"
+  }).addTo(map);
+
+  // Afficher les marqueurs existants
+  places.forEach(place => {
+    L.marker([place.latitude, place.longitude])
+      .addTo(map)
+      .bindPopup(`<strong>${place.title}</strong><br>${place.content || ""}`);
+  });
+
+  // Clic sur la carte → créer un place
+  map.on("click", function(e) {
+    const title = prompt("Nom du lieu :");
+    if (!title) return;
+
+    fetch("/places", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "X-CSRF-Token": document.querySelector('meta[name="csrf-token"]').content
+      },
+      body: JSON.stringify({
+        place: {
+          title: title,
+          latitude: e.latlng.lat,
+          longitude: e.latlng.lng
+        }
+      })
+    })
+    .then(res => res.json())
+    .then(place => {
+      L.marker([place.latitude, place.longitude])
+        .addTo(map)
+        .bindPopup(`<strong>${place.title}</strong>`)
+        .openPopup();
+    });
+  });
+</script>

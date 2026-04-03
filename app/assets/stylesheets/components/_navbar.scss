@@ -1,0 +1,115 @@
+// ── Navbar principale ──
+.navbar-replay {
+  background: #F3F4F6;
+  border-bottom: 1px solid #E5E7EB;
+  padding: 0.5rem 0;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+}
+
+// ── Brand ──
+.navbar-brand .brand-text {
+  font-weight: 800;
+  font-size: 1.25rem;
+  color: #1A2B4A;
+  letter-spacing: 0.05em;
+}
+
+// ── User chip (avatar + nom) ──
+.user-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.35rem 0.75rem;
+  border: 1px solid #E5E7EB;
+  border-radius: 50rem;
+  background: white;
+  text-decoration: none;
+  color: #1A2B4A;
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: border-color 0.15s, box-shadow 0.15s;
+
+  &:hover {
+    border-color: #1A2B4A;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+    color: #1A2B4A;
+  }
+}
+
+// ── Avatar rond ──
+.user-avatar {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: #1A2B4A;
+  color: white;
+  font-size: 0.75rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.user-avatar-lg {
+  width: 40px;
+  height: 40px;
+  font-size: 1rem;
+}
+
+// ── Dropdown header ──
+.dropdown-header-info {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+}
+
+// ── Right side navbar ──
+.navbar-nav-right {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-left: auto;
+}
+
+// ── Bottom tab bar (mobile) ──
+.bottom-tab-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: white;
+  border-top: 1px solid #E5E7EB;
+  display: flex;
+  justify-content: space-around;
+  padding: 0.5rem 0;
+  z-index: 1000;
+}
+
+.bottom-tab {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.2rem;
+  font-size: 0.7rem;
+  color: #9CA3AF;
+  text-decoration: none;
+  padding: 0.25rem 1rem;
+
+  i {
+    font-size: 1.1rem;
+  }
+
+  &.active {
+    color: #1A2B4A;
+    font-weight: 600;
+  }
+
+  &:hover {
+    color: #1A2B4A;
+  }
+}

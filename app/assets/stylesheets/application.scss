@@ -1,0 +1,39 @@
+@import "components/navbar";
+@import "components/footer";
+@import "components/map";
+
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.main-content {
+  flex: 1;
+}
+
+nav.navbar-lewagon {
+  justify-content: space-between;
+  background: white;
+}
+
+nav.navbar-lewagon .navbar-collapse {
+  flex-grow: 0;
+}
+
+nav.navbar-lewagon .navbar-brand img {
+  width: 40px;
+}
+
+nav.navbar-lewagon {
+  justify-content: space-between;
+  background: white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+nav.navbar-lewagon .avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+}
