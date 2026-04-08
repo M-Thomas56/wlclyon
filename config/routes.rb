@@ -1,7 +1,8 @@
 Rails.application.routes.draw do
   root to: "pages#home"
   devise_for :users
-  resources :places, only: [ :index, :create ]
+  resources :places, only: [ :index, :create, :new, :destroy ]
+  get "mes-places", to: "places#index_user", as: "user_places"
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.

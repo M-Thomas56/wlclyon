@@ -1,0 +1,29 @@
+<%= form_with model: place do |f| %>
+    <div class="mb-3">
+      <%= f.label :title, "Titre" %>
+      <%= f.text_field :title, class: "form-control" %>
+    </div>
+
+    <div class="mb-3">
+      <%= f.label :content, "Description" %>
+      <%= f.text_area :content, class: "form-control", rows: 3 %>
+    </div>
+
+    <div class="mb-3">
+      <%= f.label :category_id, "Catégorie" %>
+      <%= f.collection_select :category_id, categories, :id, :name, { include_blank: false }, { class: "form-select" } %>
+    </div>
+
+    <div class="mb-3">
+      <%= f.label :latitude, "Latitude" %>
+      <%= f.number_field :latitude, step: "any", class: "form-control" %>
+    </div>
+
+    <div class="mb-3">
+      <%= f.label :longitude, "Longitude" %>
+      <%= f.number_field :longitude, step: "any", class: "form-control" %>
+    </div>
+
+    <%= f.submit class: "btn btn-primary" %>
+    <%= link_to "Annuler", user_places_path, class: "btn btn-secondary ms-2" %>
+  <% end %>
