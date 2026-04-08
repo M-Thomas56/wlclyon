@@ -7,10 +7,10 @@
 #   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
-puts 'destruction de tous les utilisateurs'
-User.destroy_all
 puts 'destruction de tous les lieux'
 Place.destroy_all
+puts 'destruction de tous les utilisateurs'
+User.destroy_all
 
 puts 'creation dun utilisateurs test'
 user = User.find_or_create_by!(email: "lol@lol.com") do |u|
