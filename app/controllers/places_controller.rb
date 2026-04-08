@@ -8,9 +8,9 @@ class PlacesController < ApplicationController
     @place = Place.new(place_params)
     @place.user = current_user
     if @place.save
-      render json: @place, status: :created
+      redirect_to user_places_path, notice: "Lieu ajouté avec succès."
     else
-      render json: { errors: @place.errors.full_messages }, status: :unprocessable_entity
+      render :new, status: :unprocessable_entity
     end
   end
 
@@ -23,16 +23,6 @@ class PlacesController < ApplicationController
     @categories = Category.all
   end
 
-  def create
-    @place = PLace.find(params[:id])
-    @place.user = current.user
-    if @place.save
-      redirect_to user_places_path, notice: "Lieu ajouté avec succès."
-    else
-      render json: { errors: @place.errors.full_messages }, status: :unprocessable_entity
-    end
-  end
-
   def destroy
     @place = Place.find(params[:id])
     @place.destroy
@@ -42,6 +32,6 @@ class PlacesController < ApplicationController
   private
 
   def place_params
-    params.require(:place).permit(:title, :content, :latitude, :longitude, :category_id)
+    params.require(:place).permit(:title, :content, :latitude, :longitude, :category_id, :address)
   end
 end

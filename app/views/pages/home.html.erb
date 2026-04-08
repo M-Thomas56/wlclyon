@@ -3,7 +3,7 @@
     <meta name="turbo-cache-control" content="no-cache">
   <% end %>
 
-<div id="map" data-places="<%= @places.to_json %>" data-user-signed-in="<%= user_signed_in? %>"></div>
+<div id="map" data-places="<%= @places.map { |p| p.as_json.merge(category_name: p.category&.name) }.to_json %>"></div>
 
 <script>
    document.addEventListener("turbo:load", function() {
@@ -17,41 +17,30 @@
     }).addTo(map);
 
     // Afficher les marqueurs existants
-    places.forEach(place => {
-      L.marker([place.latitude, place.longitude])
-        .addTo(map)
-        .bindPopup(`<strong>${place.title}</strong><br>${place.content || ""}`);
+      const categoryColors = {
+    "Loisir":                 "green",
+    "Manger":                 "orange",
+    "Santé":                  "red",
+    "Logement":               "blue",
+    "Travail":                "purple",
+    "Première nécessité":     "darkred",
+    "Vie quotidienne":        "cadetblue",
+    "Droit / Papier":         "darkblue",
+    "École / Cours de langue":"darkgreen",
+    "Solidarité / Soutien":   "pink"
+  };
+
+  places.forEach(place => {
+    const color = categoryColors[place.category_name] || "grey";
+    const icon = L.divIcon({
+      className: "",
+      html: `<div style="background:${color}; width:24px; height:24px; border-radius:50%; border:2px solid white;"></div>`
     });
 
-    const userSignedIn = mapEl.dataset.userSignedIn === "true";
+    L.marker([place.latitude, place.longitude], { icon })
+      .addTo(map)
+      .bindPopup(`<strong>${place.title}</strong><br>${place.category_name || ""}`);
+  });
 
-    if (userSignedIn) {
-      map.on("click", function(e) {
-        const title = prompt("Nom du lieu :");
-        if (!title) return;
-
-        fetch("/places", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            "X-CSRF-Token": document.querySelector('meta[name="csrf-token"]').content
-          },
-          body: JSON.stringify({
-            place: {
-              title: title,
-              latitude: e.latlng.lat,
-              longitude: e.latlng.lng
-            }
-          })
-        })
-        .then(res => res.json())
-        .then(place => {
-          L.marker([place.latitude, place.longitude])
-            .addTo(map)
-            .bindPopup(`<strong>${place.title}</strong>`)
-            .openPopup();
-        });
-      });
-    }
   }, { once: true });
 </script>

@@ -15,13 +15,8 @@
     </div>
 
     <div class="mb-3">
-      <%= f.label :latitude, "Latitude" %>
-      <%= f.number_field :latitude, step: "any", class: "form-control" %>
-    </div>
-
-    <div class="mb-3">
-      <%= f.label :longitude, "Longitude" %>
-      <%= f.number_field :longitude, step: "any", class: "form-control" %>
+      <%= f.label :address, "Address" %>
+      <%= f.text_field :address, class: "form-control" %>
     </div>
 
     <%= f.submit class: "btn btn-primary" %>
